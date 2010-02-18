@@ -182,6 +182,7 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/sysconfig/gitorious
 %config(noreplace) %{webappconfdir}/%{name}.conf
 %defattr(-,git,root)
+%dir %{_var}/git
 %dir %{_var}/run/gitorious
 %dir %{_var}/log/gitorious
 %dir %{_var}/www/gitorious
@@ -211,5 +212,4 @@ rm -rf %{buildroot}
 %{_var}/www/gitorious/test/
 %{_var}/www/gitorious/tmp/
 %{_var}/www/gitorious/vendor/
-%dir %{_var}/git
 
