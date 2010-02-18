@@ -82,7 +82,7 @@ Gitorious aims to provide a great way of doing distributed opensource code colla
 cp config/ultrasphinx/{default,production}.base
 %patch0 -p0 -b .ultrasphinx_production~
 %patch1 -p1 -b .sphinx_prefix~
-rm -f config/.gitignore
+find -name .gitignore|xargs rm -f
 
 %build
 
