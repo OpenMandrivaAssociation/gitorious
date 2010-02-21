@@ -16,6 +16,7 @@ Source4:        sysconfig.gitorious
 Source5:        gitorious-setup-1st-time
 Patch0:		gitorious-0.9-ultrasphinx-conf-template.patch
 Patch1:		gitorious-0.9-ultrasphinx-sphinx-prefix.patch
+Patch2:		gitorious-0.9-relative_url_root.patch
 
 Url:		http://www.gitorious.org/
 Group:          Development/Tools/Version Control
@@ -82,6 +83,7 @@ Gitorious aims to provide a great way of doing distributed opensource code colla
 cp config/ultrasphinx/{default,production}.base
 %patch0 -p0 -b .ultrasphinx_production~
 %patch1 -p1 -b .sphinx_prefix~
+%patch2 -p1 -b .url_root~
 find -name .gitignore|xargs rm -f
 
 %build
