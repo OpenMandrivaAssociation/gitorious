@@ -147,7 +147,7 @@ Alias /%{name} %{_var}/www/%{name}/public
   Order allow,deny
   Allow from All
 
-  RailsBaseURI /%{name}
+  PassengerAppRoot %{_var}/www/%{name}
 </Directory>
 EOF
 
