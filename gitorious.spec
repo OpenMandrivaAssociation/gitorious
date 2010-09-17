@@ -62,6 +62,7 @@ Requires:       rubygem-ruby-yadis
 Requires:       ruby-stomp
 
 Requires:       memcached
+Requires:	sendmail-command
 
 Requires:       sphinx
 BuildRequires:  sphinx
