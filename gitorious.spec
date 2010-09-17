@@ -61,9 +61,6 @@ Requires:       rubygem-ruby-yadis
 
 Requires:       ruby-stomp
 
-# TODO: memcached package uses unix socket by default which disables networking.
-#       ruby's memcache-client does not support this though, implementing it
-#       looks fairly simple though...
 Requires:       memcached
 
 Requires:       sphinx
