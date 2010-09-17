@@ -41,7 +41,7 @@ Requires:       rubygem-archive-tar-minitar
 Requires:       rubygem-chronic
 Requires:       ruby-daemons
 Requires:       ruby-diff-lcs
-Requires:       ruby-echoe
+Requires:       rubygem(echoe)
 Requires:       rubygem-fastthread
 Requires:       ruby-geoip
 Requires:       rubygem-highline
