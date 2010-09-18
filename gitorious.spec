@@ -168,6 +168,9 @@ touch %{buildroot}%{_var}/www/gitorious/config/database.yml
 install -d %{buildroot}%{_var}/{run,log}/gitorious
 install -d %{buildroot}%{_var}/{cache,tmp}/gitorious/tarballs
 
+install -d %{buildroot}%{_var}/git/.ssh
+touch %{buildroot}%{_var}/git/.ssh/authorized_keys
+
 %clean
 rm -rf %{buildroot}
 
@@ -197,6 +200,8 @@ rm -rf %{buildroot}
 %config(noreplace) %{webappconfdir}/%{name}.conf
 %defattr(-,git,root)
 %dir %{_var}/git
+%attr(700,git,root) %dir %{_var}/git/.ssh
+%attr(600,git,root) %config(noreplace) %{_var}/git/.ssh/authorized_keys
 %dir %{_var}/cache/gitorious
 %dir %{_var}/cache/gitorious/tarballs
 %dir %{_var}/tmp/gitorious
