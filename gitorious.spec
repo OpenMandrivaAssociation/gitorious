@@ -2,17 +2,17 @@
 # http://download.opensuse.org/repositories/home://dmacvicar:/gitorious/openSUSE_Factory/src/
 
 %define	railsv	2.3.9
-Name:           gitorious
-Version:        0.9
-Release:        %mkrel 1
-License:        AGPLv3
+Name:		gitorious
+Version:	0.9
+Release:	%mkrel 1
+License:	AGPLv3
 # 2ba975497d9d1fa0014d0414631210726c7ef0f3
-Source0:        gitorious.tar.xz
-Source1:        gitorious-git-daemon.init
-Source2:        gitorious-poller.init
-Source3:        gitorious-ultrasphinx.init
-Source4:        sysconfig.gitorious
-Source5:        gitorious-setup-1st-time
+Source0:	gitorious.tar.xz
+Source1:	gitorious-git-daemon.init
+Source2:	gitorious-poller.init
+Source3:	gitorious-ultrasphinx.init
+Source4:	sysconfig.gitorious
+Source5:	gitorious-setup-1st-time
 Patch0:		gitorious-0.9-ultrasphinx-conf-template.patch
 Patch1:		gitorious-0.9-ultrasphinx-sphinx-prefix.patch
 Patch2:		gitorious-0.9-relative_url_root.patch
@@ -20,47 +20,47 @@ Patch3:		gitorious-0.9-poller-pid-path.patch
 Patch4:		gitorious-0.9-use-system-oauth-gem.patch
 
 Url:		http://www.gitorious.org/
-Group:          Development/Tools/Version Control
-Summary:        Web based code collaboration
+Group:		Development/Other
+Summary:	Web based code collaboration
 BuildArch:	noarch
 
 Requires:	apache-mpm-prefork
-Requires:       rubygem-passenger
+Requires:	rubygem-passenger
 
-Requires:       rubygem(stompserver)
+Requires:	rubygem(stompserver)
 
-Requires:       aspell
+Requires:	aspell
 Suggests:	aspell-en
-Requires:       git
-Requires:       git-core
-Requires:       ImageMagick
-Requires:       libcurl4
-Requires:       mysql
-Requires:       ruby-mysql
+Requires:	git
+Requires:	git-core
+Requires:	ImageMagick
+Requires:	libcurl4
+Requires:	mysql
+Requires:	ruby-mysql
 Requires:	rubygem-BlueCloth
-Requires:       rubygem-archive-tar-minitar
-Requires:       rubygem-chronic
-Requires:       ruby-daemons
-Requires:       ruby-diff-lcs
-Requires:       rubygem(echoe)
-Requires:       rubygem-fastthread
-Requires:       ruby-geoip
-Requires:       rubygem-highline
-Requires:       rubygem-hoe
-Requires:       rubygem-json
-Requires:       rubygem-mime-types
-Requires:       rubygem-nokogiri
-Requires:       rubygem-oauth
+Requires:	rubygem-archive-tar-minitar
+Requires:	rubygem-chronic
+Requires:	ruby-daemons
+Requires:	ruby-diff-lcs
+Requires:	rubygem(echoe)
+Requires:	rubygem-fastthread
+Requires:	ruby-geoip
+Requires:	rubygem-highline
+Requires:	rubygem-hoe
+Requires:	rubygem-json
+Requires:	rubygem-mime-types
+Requires:	rubygem-nokogiri
+Requires:	rubygem-oauth
 Requires:	rubygem-oniguruma
-Requires:       ruby-rack
-Requires:       ruby-rake
-Requires:       ruby-rdiscount
-Requires:       rubygem-RedCloth
-Requires:       rubygem-ruby-hmac
-Requires:       rubygem-ruby-openid
-Requires:       rubygem-ruby-yadis
+Requires:	ruby-rack
+Requires:	ruby-rake
+Requires:	ruby-rdiscount
+Requires:	rubygem-RedCloth
+Requires:	rubygem-ruby-hmac
+Requires:	rubygem-ruby-openid
+Requires:	rubygem-ruby-yadis
 
-Requires:       ruby-stomp
+Requires:	ruby-stomp
 
 Requires:	memcached
 Requires:	sendmail-command
@@ -68,17 +68,17 @@ Requires:	sendmail-command
 Requires:	apache-mod_xsendfile
 Requires:	apache-mod_ssl
 
-Requires:       sphinx
-BuildRequires:  sphinx
+Requires:	sphinx
+BuildRequires:	sphinx
 
 Requires:	rails = %{railsv}
 BuildRequires:	rails = %{railsv}
 # we need hostname to configure, and dd for generating random string
-BuildRequires:  net-tools coreutils gawk
+BuildRequires:	net-tools coreutils gawk
 # required by rpm build to check symbols in JsTestDriver-1.0b.jar
-BuildRequires:  fastjar
+BuildRequires:	fastjar
 
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Gitorious aims to provide a great way of doing distributed opensource code collaboration.
