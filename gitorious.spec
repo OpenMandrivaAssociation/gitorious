@@ -26,7 +26,7 @@ BuildArch:	noarch
 Requires:	apache-mpm-prefork
 Requires:       rubygem-passenger
 
-#Requires:       activemq
+Requires:       rubygem(stompserver)
 
 Requires:       aspell
 Suggests:	aspell-en
