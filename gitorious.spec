@@ -149,6 +149,12 @@ install -m755 %{SOURCE5} -D %{buildroot}%{_bindir}/gitorious-setup-1st-time
 
 install -d %{buildroot}%{webappconfdir}
 cat >>  %{buildroot}%{webappconfdir}/%{name}.conf <<EOF
+# Enable X-SendFile for Gitorious repo archiving to work  
+<IfModule mod_xsendfile.c>
+  XSendFile on
+  XSendFileAllowAbove on
+</IfModule>
+
 Alias /%{name} %{_var}/www/%{name}/public
 <Directory "%{_var}/www/%{name}/public">
   Order allow,deny
