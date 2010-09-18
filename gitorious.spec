@@ -29,11 +29,10 @@ Suggests:	aspell-en
 Requires:	git
 Requires:	git-core
 Requires:	ImageMagick
-Requires:	mysql
 Requires:	ruby-mysql
 Requires:	rubygem-BlueCloth
 Requires:	rubygem-archive-tar-minitar
-Requires:	rubygem-chronic
+Requires:	rubygem(chronic)
 Requires:	ruby-diff-lcs
 Requires:	rubygem(echoe)
 Requires:	rubygem-fastthread
@@ -61,7 +60,9 @@ Requires:	sendmail-command
 # Required for source tarball download to work
 Requires:	apache-mod_xsendfile
 Requires:	apache-mod_ssl
+Requires:	%{name}-database
 
+Requires:	rubygem(ultrasphinx)
 Requires:	sphinx
 BuildRequires:	sphinx
 
@@ -77,6 +78,18 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 %description
 Gitorious aims to provide a great way of doing distributed opensource code collaboration.
 
+%package	mysql
+Summary:	Meta package for %{name} mysql setup
+Group:		Development/Other
+Requires:	ruby-mysql mysql
+Provides:	%{name}-database
+
+%package	postgresql
+Summary:	Meta package for %{name} postgresql setup
+Group:		Development/Other
+Requires:	ruby-postgresql postgresql-plpgsql
+Provides:	%{name}-database
+
 %prep
 %setup -q -n gitorious
 cp config/ultrasphinx/{default,production}.base
@@ -87,7 +100,7 @@ cp config/ultrasphinx/{default,production}.base
 %patch4 -p1 -b .oauth_gem~
 find -name .gitignore|xargs rm -f
 sed -e "s#RAILS_GEM_VERSION = '.*'#RAILS_GEM_VERSION = '%{railsv}'#g" -i config/environment.rb
-rm -rf vendor/rails vendor/oauth
+rm -rf vendor/rails vendor/oauth vendor/plugins/ultrasphinx
 
 %build
 
