@@ -24,36 +24,26 @@ Group:		Development/Other
 Summary:	Web based code collaboration
 BuildArch:	noarch
 
-Requires:	apache-mpm-prefork
-Requires:	rubygem-passenger
-
-Requires:	rubygem(stompserver)
-
 Requires:	aspell
 Suggests:	aspell-en
 Requires:	git
 Requires:	git-core
 Requires:	ImageMagick
-Requires:	libcurl4
 Requires:	mysql
 Requires:	ruby-mysql
 Requires:	rubygem-BlueCloth
 Requires:	rubygem-archive-tar-minitar
 Requires:	rubygem-chronic
-Requires:	ruby-daemons
 Requires:	ruby-diff-lcs
 Requires:	rubygem(echoe)
 Requires:	rubygem-fastthread
 Requires:	ruby-geoip
 Requires:	rubygem-highline
-Requires:	rubygem-hoe
 Requires:	rubygem-json
 Requires:	rubygem-mime-types
 Requires:	rubygem-nokogiri
 Requires:	rubygem-oauth
 Requires:	rubygem-oniguruma
-Requires:	ruby-rack
-Requires:	ruby-rake
 Requires:	ruby-rdiscount
 Requires:	rubygem-RedCloth
 Requires:	rubygem-ruby-hmac
@@ -61,6 +51,10 @@ Requires:	rubygem-ruby-openid
 Requires:	rubygem-ruby-yadis
 
 Requires:	ruby-stomp
+Requires:	rubygem(stompserver)
+
+Requires:	apache-mpm-prefork
+Requires:	rubygem-passenger
 
 Requires:	memcached
 Requires:	sendmail-command
@@ -71,8 +65,8 @@ Requires:	apache-mod_ssl
 Requires:	sphinx
 BuildRequires:	sphinx
 
-Requires:	rails = %{railsv}
-BuildRequires:	rails = %{railsv}
+Requires:	rubygem(rails) = %{railsv}
+BuildRequires:	rubygem(rails) = %{railsv}
 # we need hostname to configure, and dd for generating random string
 BuildRequires:	net-tools coreutils gawk
 # required by rpm build to check symbols in JsTestDriver-1.0b.jar
