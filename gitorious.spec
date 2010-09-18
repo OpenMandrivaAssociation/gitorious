@@ -155,13 +155,18 @@ cat >>  %{buildroot}%{webappconfdir}/%{name}.conf <<EOF
   XSendFileAllowAbove on
 </IfModule>
 
-Alias /%{name} %{_var}/www/%{name}/public
-<Directory "%{_var}/www/%{name}/public">
-  Order allow,deny
-  Allow from All
+<IfModule mod_alias.c>
+  Alias /%{name} %{_var}/www/%{name}/public
+</IfModule>
 
-  PassengerAppRoot %{_var}/www/%{name}
-</Directory>
+<IfModule mod_passenger.c>
+  <Directory "%{_var}/www/%{name}/public">
+    Order allow,deny
+    Allow from All
+
+    PassengerAppRoot %{_var}/www/%{name}
+  </Directory>
+</IfModule>
 EOF
 
 touch %{buildroot}%{_var}/www/gitorious/config/database.yml
