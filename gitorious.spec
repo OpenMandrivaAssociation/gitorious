@@ -84,11 +84,17 @@ Group:		Development/Other
 Requires:	ruby-mysql mysql
 Provides:	%{name}-database
 
+%description	mysql
+Meta package for %{name} mysql setup.
+
 %package	postgresql
 Summary:	Meta package for %{name} postgresql setup
 Group:		Development/Other
 Requires:	ruby-postgresql postgresql-plpgsql
 Provides:	%{name}-database
+
+%description	postgresql
+Meta package for %{name} postgresql setup.
 
 %prep
 %setup -q -n gitorious
@@ -253,3 +259,5 @@ rm -rf %{buildroot}
 %{_var}/www/gitorious/tmp/
 %{_var}/www/gitorious/vendor/
 
+%files mysql
+%files postgresql
