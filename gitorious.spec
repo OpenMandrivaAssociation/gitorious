@@ -66,6 +66,7 @@ Requires:	memcached
 Requires:	sendmail-command
 # Required for source tarball download to work
 Requires:	apache-mod_xsendfile
+Requires:	apache-mod_ssl
 
 Requires:       sphinx
 BuildRequires:  sphinx
