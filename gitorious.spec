@@ -1,8 +1,7 @@
 # package derived from:
 # http://download.opensuse.org/repositories/home://dmacvicar:/gitorious/openSUSE_Factory/src/
 
-#(proyvind): This package is work in progress and not ready to be released,
-#            do *NOT* submit without my approval!
+%define	railsv	2.3.9
 Name:           gitorious
 Version:        0.9
 Release:        %mkrel 1
@@ -71,8 +70,8 @@ Requires:	apache-mod_ssl
 Requires:       sphinx
 BuildRequires:  sphinx
 
-Requires:	rails >= 2.3
-BuildRequires:	rails >= 2.3
+Requires:	rails = %{railsv}
+BuildRequires:	rails = %{railsv}
 # we need hostname to configure, and dd for generating random string
 BuildRequires:  net-tools coreutils gawk
 # required by rpm build to check symbols in JsTestDriver-1.0b.jar
@@ -91,6 +90,8 @@ cp config/ultrasphinx/{default,production}.base
 %patch2 -p1 -b .url_root~
 %patch3 -p1 -b .pidpath~
 find -name .gitignore|xargs rm -f
+sed -e "s#RAILS_GEM_VERSION = '.*'#RAILS_GEM_VERSION = '%{railsv}'#g" -i config/environment.rb
+rm -rf vendor/rails
 
 %build
 
