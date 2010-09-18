@@ -17,6 +17,7 @@ Source5:        gitorious-setup-1st-time
 Patch0:		gitorious-0.9-ultrasphinx-conf-template.patch
 Patch1:		gitorious-0.9-ultrasphinx-sphinx-prefix.patch
 Patch2:		gitorious-0.9-relative_url_root.patch
+Patch3:		gitorious-0.9-poller-pid-path.patch
 
 Url:		http://www.gitorious.org/
 Group:          Development/Tools/Version Control
@@ -85,6 +86,7 @@ cp config/ultrasphinx/{default,production}.base
 %patch0 -p0 -b .ultrasphinx_production~
 %patch1 -p1 -b .sphinx_prefix~
 %patch2 -p1 -b .url_root~
+%patch3 -p1 -b .pidpath~
 find -name .gitignore|xargs rm -f
 
 %build
@@ -156,6 +158,7 @@ EOF
 
 touch %{buildroot}%{_var}/www/gitorious/config/database.yml
 install -d %{buildroot}%{_var}/{run,log}/gitorious
+install -d %{buildroot}%{_var}/{cache,tmp}/gitorious/tarballs
 
 %clean
 rm -rf %{buildroot}
@@ -186,6 +189,10 @@ rm -rf %{buildroot}
 %config(noreplace) %{webappconfdir}/%{name}.conf
 %defattr(-,git,root)
 %dir %{_var}/git
+%dir %{_var}/cache/gitorious
+%dir %{_var}/cache/gitorious/tarballs
+%dir %{_var}/tmp/gitorious
+%dir %{_var}/tmp/gitorious/tarballs
 %dir %{_var}/run/gitorious
 %dir %{_var}/log/gitorious
 %dir %{_var}/www/gitorious
