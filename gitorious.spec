@@ -62,8 +62,10 @@ Requires:       rubygem-ruby-yadis
 
 Requires:       ruby-stomp
 
-Requires:       memcached
+Requires:	memcached
 Requires:	sendmail-command
+# Required for source tarball download to work
+Requires:	apache-mod_xsendfile
 
 Requires:       sphinx
 BuildRequires:  sphinx
