@@ -17,6 +17,7 @@ Patch0:		gitorious-0.9-ultrasphinx-conf-template.patch
 Patch1:		gitorious-0.9-ultrasphinx-sphinx-prefix.patch
 Patch2:		gitorious-0.9-relative_url_root.patch
 Patch3:		gitorious-0.9-poller-pid-path.patch
+Patch4:		gitorious-0.9-use-system-oauth-gem.patch
 
 Url:		http://www.gitorious.org/
 Group:          Development/Tools/Version Control
@@ -89,9 +90,10 @@ cp config/ultrasphinx/{default,production}.base
 %patch1 -p1 -b .sphinx_prefix~
 %patch2 -p1 -b .url_root~
 %patch3 -p1 -b .pidpath~
+%patch4 -p1 -b .oauth_gem~
 find -name .gitignore|xargs rm -f
 sed -e "s#RAILS_GEM_VERSION = '.*'#RAILS_GEM_VERSION = '%{railsv}'#g" -i config/environment.rb
-rm -rf vendor/rails
+rm -rf vendor/rails vendor/oauth
 
 %build
 
