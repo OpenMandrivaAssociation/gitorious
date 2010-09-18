@@ -100,6 +100,7 @@ sed -e 's,/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby,/u
 
 install -d %{buildroot}%{_var}/www/gitorious
 cp -R Rakefile app bin config data db doc lib log public script test tmp vendor %{buildroot}%{_var}/www/gitorious
+find %{buildroot} -name \*~ -delete
 
 # add the init files
 install -m755 %{SOURCE1} -D %{buildroot}%{_initrddir}/gitorious-git-daemon
