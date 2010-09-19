@@ -14,10 +14,10 @@ Source3:	gitorious-ultrasphinx.init
 Source4:	sysconfig.gitorious
 Source5:	gitorious-setup-1st-time
 Patch0:		gitorious-0.9-ultrasphinx-conf-template.patch
-Patch1:		gitorious-0.9-ultrasphinx-sphinx-prefix.patch
 Patch2:		gitorious-0.9-relative_url_root.patch
 Patch3:		gitorious-0.9-poller-pid-path.patch
 Patch4:		gitorious-0.9-use-system-oauth-gem.patch
+Patch5:		gitorious-0.9-ruby-shellbang-path-fix.patch
 
 Url:		http://www.gitorious.org/
 Group:		Development/Other
@@ -90,7 +90,7 @@ Meta package for %{name} mysql setup.
 %package	postgresql
 Summary:	Meta package for %{name} postgresql setup
 Group:		Development/Other
-Requires:	ruby-postgresql postgresql-plpgsql
+Requires:	ruby-postgres postgresql-plpgsql
 Provides:	%{name}-database
 
 %description	postgresql
@@ -100,10 +100,10 @@ Meta package for %{name} postgresql setup.
 %setup -q -n gitorious
 cp config/ultrasphinx/{default,production}.base
 %patch0 -p0 -b .ultrasphinx_production~
-%patch1 -p1 -b .sphinx_prefix~
 %patch2 -p1 -b .url_root~
 %patch3 -p1 -b .pidpath~
 %patch4 -p1 -b .oauth_gem~
+%patch5 -p1 -b .shellbang~
 find -name .gitignore|xargs rm -f
 sed -e "s#RAILS_GEM_VERSION = '.*'#RAILS_GEM_VERSION = '%{railsv}'#g" -i config/environment.rb
 rm -rf vendor/rails vendor/oauth vendor/plugins/ultrasphinx
@@ -114,9 +114,6 @@ rm -rf vendor/rails vendor/oauth vendor/plugins/ultrasphinx
 rm -rf %{buildroot}
 
 # more crap
-sed -e 's,/usr/local/bin/ruby,/usr/bin/env ruby,g' -i vendor/plugins/ultrasphinx/test/integration/app/public/dispatch.*
-sed -e 's,/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby,/usr/bin/env ruby,g' -i public/dispatch.*
-
 install -d %{buildroot}%{_var}/www/gitorious
 cp -R Rakefile app bin config data db doc lib log public script test tmp vendor %{buildroot}%{_var}/www/gitorious
 find %{buildroot} -name \*~ -delete
@@ -133,13 +130,13 @@ ln -s %{_var}/www/gitorious/script/gitorious %{buildroot}%{_bindir}/gitorious
 install -m644 %{SOURCE4} -D %{buildroot}%{_sysconfdir}/sysconfig/gitorious
 
 # create the repositories directory
-install -d -m755 %{buildroot}%{_var}/git
+install -d -m755 %{buildroot}%{_localstatedir}/lib/git
 
 # configure the instance
 cat > %{buildroot}%{_var}/www/gitorious/config/gitorious.yml <<EOF
 production:
   cookie_secret:
-  repository_base_path: "%{_var}/git"
+  repository_base_path: "%{_localstatedir}/lib/git"
   extra_html_head_data:
   system_message:
   gitorious_client_port: 3000
@@ -191,14 +188,14 @@ touch %{buildroot}%{_var}/www/gitorious/config/database.yml
 install -d %{buildroot}%{_var}/{run,log}/gitorious
 install -d %{buildroot}%{_var}/{cache,tmp}/gitorious/tarballs
 
-install -d %{buildroot}%{_var}/git/.ssh
-touch %{buildroot}%{_var}/git/.ssh/authorized_keys
+install -d %{buildroot}%{_localstatedir}/lib/git/.ssh
+touch %{buildroot}%{_localstatedir}/lib/git/.ssh/authorized_keys
 
 %clean
 rm -rf %{buildroot}
 
 %pre
-%_pre_useradd git %{_var}/git /bin/true
+%_pre_useradd git %{_localstatedir}/lib/git /bin/true
 
 %post
 %{_post_service gitorious-git-daemon}
@@ -222,9 +219,9 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/sysconfig/gitorious
 %config(noreplace) %{webappconfdir}/%{name}.conf
 %defattr(-,git,root)
-%dir %{_var}/git
-%attr(700,git,root) %dir %{_var}/git/.ssh
-%attr(600,git,root) %config(noreplace) %{_var}/git/.ssh/authorized_keys
+%dir %{_localstatedir}/lib/git
+%attr(700,git,root) %dir %{_localstatedir}/lib/git/.ssh
+%attr(600,git,root) %config(noreplace) %{_localstatedir}/lib/git/.ssh/authorized_keys
 %dir %{_var}/cache/gitorious
 %dir %{_var}/cache/gitorious/tarballs
 %dir %{_var}/tmp/gitorious
