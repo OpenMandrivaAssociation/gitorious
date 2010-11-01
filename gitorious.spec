@@ -1,7 +1,7 @@
 # package derived from:
 # http://download.opensuse.org/repositories/home://dmacvicar:/gitorious/openSUSE_Factory/src/
 
-%define	railsv	2.3.9
+%define	railsv	2.3.10
 Name:		gitorious
 Version:	0.9
 Release:	%mkrel 1
@@ -105,6 +105,7 @@ cp config/ultrasphinx/{default,production}.base
 %patch4 -p1 -b .oauth_gem~
 %patch5 -p1 -b .shellbang~
 find -name .gitignore|xargs rm -f
+# FIXME: hardcoding version is lame
 sed -e "s#RAILS_GEM_VERSION = '.*'#RAILS_GEM_VERSION = '%{railsv}'#g" -i config/environment.rb
 rm -rf vendor/rails vendor/oauth vendor/plugins/ultrasphinx
 
