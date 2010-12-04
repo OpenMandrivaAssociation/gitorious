@@ -42,7 +42,7 @@ Requires:	rubygem-mime-types
 Requires:	rubygem-nokogiri
 Requires:	rubygem-oauth
 Requires:	rubygem-oniguruma
-Requires:	ruby-rdiscount
+Requires:	rubygem(rdiscount)
 Requires:	rubygem-RedCloth
 Requires:	rubygem-ruby-hmac
 Requires:	rubygem-ruby-openid
