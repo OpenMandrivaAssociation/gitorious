@@ -4,7 +4,7 @@
 %define	railsv	2.3.10
 Name:		gitorious
 Version:	0.9
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	AGPLv3
 # 2ba975497d9d1fa0014d0414631210726c7ef0f3
 Source0:	gitorious.tar.xz
@@ -29,7 +29,6 @@ Suggests:	aspell-en
 Requires:	git
 Requires:	git-core
 Requires:	ImageMagick
-Requires:	ruby-mysql
 Requires:	rubygem-BlueCloth
 Requires:	rubygem-archive-tar-minitar
 Requires:	rubygem(chronic)
