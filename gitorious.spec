@@ -29,30 +29,30 @@ Suggests:	aspell-en
 Requires:	git
 Requires:	git-core
 Requires:	ImageMagick
-Requires:	rubygem-BlueCloth
-Requires:	rubygem-archive-tar-minitar
+Requires:	rubygem(BlueCloth)
+Requires:	rubygem(archive-tar-minitar)
 Requires:	rubygem(chronic)
 Requires:	rubygem(diff-lcs)
 Requires:	rubygem(echoe)
-Requires:	rubygem-fastthread
-Requires:	ruby-geoip
-Requires:	rubygem-highline
-Requires:	rubygem-json
-Requires:	rubygem-mime-types
-Requires:	rubygem-nokogiri
-Requires:	rubygem-oauth
-Requires:	rubygem-oniguruma
+Requires:	rubygem(fastthread)
+Requires:	rubygem(geoip)
+Requires:	rubygem(highline)
+Requires:	rubygem(json)
+Requires:	rubygem(mime-types)
+Requires:	rubygem(nokogiri)
+Requires:	rubygem(oauth)
+Requires:	rubygem(oniguruma)
 Requires:	rubygem(rdiscount)
-Requires:	rubygem-RedCloth
-Requires:	rubygem-ruby-hmac
-Requires:	rubygem-ruby-openid
-Requires:	rubygem-ruby-yadis
+Requires:	rubygem(RedCloth)
+Requires:	rubygem(ruby-hmac)
+Requires:	rubygem(ruby-openid)
+Requires:	rubygem(ruby-yadis)
 
-Requires:	ruby-stomp
+Requires:	rubygem(stomp)
 Requires:	rubygem(stompserver)
 
 Requires:	apache-mpm-prefork
-Requires:	rubygem-passenger
+Requires:	rubygem(passenger)
 
 Requires:	memcached
 Requires:	sendmail-command
@@ -80,7 +80,7 @@ Gitorious aims to provide a great way of doing distributed opensource code colla
 %package	mysql
 Summary:	Meta package for %{name} mysql setup
 Group:		Development/Other
-Requires:	ruby-mysql mysql
+Requires:	rubygem(mysql) mysql
 Provides:	%{name}-database
 
 %description	mysql
@@ -89,7 +89,7 @@ Meta package for %{name} mysql setup.
 %package	postgresql
 Summary:	Meta package for %{name} postgresql setup
 Group:		Development/Other
-Requires:	ruby-postgres postgresql-plpgsql
+Requires:	rubygem(postgres) postgresql-plpgsql
 Provides:	%{name}-database
 
 %description	postgresql
