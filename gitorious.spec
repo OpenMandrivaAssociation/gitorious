@@ -4,7 +4,7 @@
 %define	railsv	2.3.10
 Name:		gitorious
 Version:	0.9
-Release:	%mkrel 4
+Release:	%mkrel 5
 License:	AGPLv3
 # 2ba975497d9d1fa0014d0414631210726c7ef0f3
 Source0:	gitorious.tar.xz
@@ -167,7 +167,7 @@ cat >>  %{buildroot}%{webappconfdir}/%{name}.conf <<EOF
 # Enable X-SendFile for Gitorious repo archiving to work  
 <IfModule mod_xsendfile.c>
   XSendFile on
-  XSendFileAllowAbove on
+  XSendFilePath %{_var}/cache/%{name}/tarballs
 </IfModule>
 
 <IfModule mod_alias.c>
