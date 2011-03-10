@@ -114,8 +114,8 @@ rm -rf vendor/rails vendor/oauth vendor/plugins/ultrasphinx
 rm -rf %{buildroot}
 
 # more crap
-install -d %{buildroot}%{_var}/www/gitorious
-cp -R Rakefile app bin config data db doc lib log public script test tmp vendor %{buildroot}%{_var}/www/gitorious
+install -d %{buildroot}%{_var}/www/%{name}
+cp -R Rakefile app bin config data db doc lib log public script test tmp vendor %{buildroot}%{_var}/www/%{name}
 find %{buildroot} -name \*~ -delete
 
 # add the init files
@@ -125,7 +125,7 @@ install -m755 %{SOURCE3} -D %{buildroot}%{_initrddir}/gitorious-ultrasphinx
 
 # make the gitorious client available in the path
 install -d %{buildroot}%{_bindir}
-ln -s %{_var}/www/gitorious/script/gitorious %{buildroot}%{_bindir}/gitorious
+ln -s %{_var}/www/%{name}/script/gitorious %{buildroot}%{_bindir}/gitorious
 
 install -m644 %{SOURCE4} -D %{buildroot}%{_sysconfdir}/sysconfig/gitorious
 
@@ -133,7 +133,7 @@ install -m644 %{SOURCE4} -D %{buildroot}%{_sysconfdir}/sysconfig/gitorious
 install -d -m755 %{buildroot}%{_localstatedir}/lib/git
 
 # configure the instance
-cat > %{buildroot}%{_var}/www/gitorious/config/gitorious.yml <<EOF
+cat > %{buildroot}%{_var}/www/%{name}/config/gitorious.yml <<EOF
 production:
   cookie_secret:
   repository_base_path: "%{_localstatedir}/lib/git"
@@ -147,14 +147,14 @@ production:
   mangle_email_addresses: false
   public_mode: true
   locale: en
-  archive_cache_dir: "%{_var}/cache/gitorious/tarballs"
-  archive_work_dir: "%{_var}/tmp/gitorious/tarballs"
+  archive_cache_dir: "%{_var}/cache/%{name}/tarballs"
+  archive_work_dir: "%{_var}/tmp/%{name}/tarballs"
   only_site_admins_can_create_projects: false
   hide_http_clone_urls: false
   is_gitorious_dot_org: false
 EOF
 
-cat > %{buildroot}%{_var}/www/gitorious/config/broker.yml <<EOF
+cat > %{buildroot}%{_var}/www/%{name}/config/broker.yml <<EOF
 production:
     adapter: stomp
 EOF
@@ -184,9 +184,9 @@ cat >>  %{buildroot}%{webappconfdir}/%{name}.conf <<EOF
 </IfModule>
 EOF
 
-touch %{buildroot}%{_var}/www/gitorious/config/database.yml
-install -d %{buildroot}%{_var}/{run,log}/gitorious
-install -d %{buildroot}%{_var}/{cache,tmp}/gitorious/tarballs
+touch %{buildroot}%{_var}/www/%{name}/config/database.yml
+install -d %{buildroot}%{_var}/{run,log}/%{name}
+install -d %{buildroot}%{_var}/{cache,tmp}/%{name}/tarballs
 
 install -d %{buildroot}%{_localstatedir}/lib/git/.ssh
 touch %{buildroot}%{_localstatedir}/lib/git/.ssh/authorized_keys
@@ -222,39 +222,39 @@ rm -rf %{buildroot}
 %dir %{_localstatedir}/lib/git
 %attr(700,git,root) %dir %{_localstatedir}/lib/git/.ssh
 %attr(600,git,root) %config(noreplace) %{_localstatedir}/lib/git/.ssh/authorized_keys
-%dir %{_var}/cache/gitorious
-%dir %{_var}/cache/gitorious/tarballs
-%dir %{_var}/tmp/gitorious
-%dir %{_var}/tmp/gitorious/tarballs
-%dir %{_var}/run/gitorious
-%dir %{_var}/log/gitorious
-%dir %{_var}/www/gitorious
-%{_var}/www/gitorious/Rakefile
-%{_var}/www/gitorious/app/
-%{_var}/www/gitorious/bin/
-%dir %{_var}/www/gitorious/config
-%config(noreplace) %{_var}/www/gitorious/config/broker.yml
-%ghost %config(noreplace) %{_var}/www/gitorious/config/database.yml
-%config(noreplace) %{_var}/www/gitorious/config/gitorious.yml
-%config(noreplace) %{_var}/www/gitorious/config/jsTestDriver.conf
-%{_var}/www/gitorious/config/broker.yml.example
-%{_var}/www/gitorious/config/database.sample.yml
-%{_var}/www/gitorious/config/gitorious.sample.yml
-%{_var}/www/gitorious/config/*.rb
-%{_var}/www/gitorious/config/environments
-%{_var}/www/gitorious/config/initializers
-%{_var}/www/gitorious/config/locales
-%{_var}/www/gitorious/config/ultrasphinx
-%{_var}/www/gitorious/data/
-%{_var}/www/gitorious/db/
-%{_var}/www/gitorious/doc/
-%{_var}/www/gitorious/lib/
-%{_var}/www/gitorious/log/
-%{_var}/www/gitorious/public/
-%{_var}/www/gitorious/script/
-%{_var}/www/gitorious/test/
-%{_var}/www/gitorious/tmp/
-%{_var}/www/gitorious/vendor/
+%dir %{_var}/cache/%{name}
+%dir %{_var}/cache/%{name}/tarballs
+%dir %{_var}/tmp/%{name}
+%dir %{_var}/tmp/%{name}/tarballs
+%dir %{_var}/run/%{name}
+%dir %{_var}/log/%{name}
+%dir %{_var}/www/%{name}
+%{_var}/www/%{name}/Rakefile
+%{_var}/www/%{name}/app/
+%{_var}/www/%{name}/bin/
+%dir %{_var}/www/%{name}/config
+%config(noreplace) %{_var}/www/%{name}/config/broker.yml
+%ghost %config(noreplace) %{_var}/www/%{name}/config/database.yml
+%config(noreplace) %{_var}/www/%{name}/config/gitorious.yml
+%config(noreplace) %{_var}/www/%{name}/config/jsTestDriver.conf
+%{_var}/www/%{name}/config/broker.yml.example
+%{_var}/www/%{name}/config/database.sample.yml
+%{_var}/www/%{name}/config/gitorious.sample.yml
+%{_var}/www/%{name}/config/*.rb
+%{_var}/www/%{name}/config/environments
+%{_var}/www/%{name}/config/initializers
+%{_var}/www/%{name}/config/locales
+%{_var}/www/%{name}/config/ultrasphinx
+%{_var}/www/%{name}/data/
+%{_var}/www/%{name}/db/
+%{_var}/www/%{name}/doc/
+%{_var}/www/%{name}/lib/
+%{_var}/www/%{name}/log/
+%{_var}/www/%{name}/public/
+%{_var}/www/%{name}/script/
+%{_var}/www/%{name}/test/
+%{_var}/www/%{name}/tmp/
+%{_var}/www/%{name}/vendor/
 
 %files mysql
 %files postgresql
