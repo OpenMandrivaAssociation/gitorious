@@ -25,7 +25,7 @@ Group:		Development/Other
 Summary:	Web based code collaboration
 BuildArch:	noarch
 
-Requires:	aspell
+Requires:	rubygem(raspell)
 Suggests:	aspell-en
 Requires:	git
 Requires:	git-core
