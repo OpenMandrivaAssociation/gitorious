@@ -18,6 +18,7 @@ Patch2:		gitorious-0.9-relative_url_root.patch
 Patch3:		gitorious-0.9-poller-pid-path.patch
 Patch4:		gitorious-0.9-use-system-oauth-gem.patch
 Patch5:		gitorious-0.9-ruby-shellbang-path-fix.patch
+Patch6:		gitorious-0.9-no-hard-version-dependency.patch
 
 Url:		http://www.gitorious.org/
 Group:		Development/Other
@@ -103,6 +104,7 @@ cp config/ultrasphinx/{default,production}.base
 %patch3 -p1 -b .pidpath~
 %patch4 -p1 -b .oauth_gem~
 %patch5 -p1 -b .shellbang~
+%patch6 -p1 -b .gemver~
 find -name .gitignore|xargs rm -f
 # FIXME: hardcoding version is lame
 sed -e "s#RAILS_GEM_VERSION = '.*'#RAILS_GEM_VERSION = '%{railsv}'#g" -i config/environment.rb
