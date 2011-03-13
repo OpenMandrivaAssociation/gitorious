@@ -142,8 +142,8 @@ production:
   extra_html_head_data:
   system_message:
   gitorious_client_port: 3000
-  gitorious_client_host: localhost
-  gitorious_host: localhost
+  gitorious_client_host: localhost.localdomain
+  gitorious_host: localhost.localdomain
   gitorious_user: git
   exception_notification_emails:
   mangle_email_addresses: false
