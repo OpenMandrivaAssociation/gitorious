@@ -6,7 +6,7 @@ Name:		gitorious
 Version:	0.9
 Release:	%mkrel 5
 License:	AGPLv3
-# 2ba975497d9d1fa0014d0414631210726c7ef0f3
+# 4cfa565112293932ab7b3ed4cce5e11603d4e0bf
 Source0:	gitorious.tar.xz
 Source1:	gitorious-git-daemon.init
 Source2:	gitorious-poller.init
@@ -16,10 +16,8 @@ Source5:	gitorious-setup-1st-time
 Patch0:		gitorious-0.9-ultrasphinx-conf-template.patch
 Patch2:		gitorious-0.9-relative_url_root.patch
 Patch3:		gitorious-0.9-poller-pid-path.patch
-Patch4:		gitorious-0.9-use-system-oauth-gem.patch
 Patch5:		gitorious-0.9-ruby-shellbang-path-fix.patch
-Patch6:		gitorious-0.9-no-hard-version-dependency.patch
-Patch7:		gitorious-0.9-use-aspell-en-dictionary-by-default.patch
+Patch6:		gitorious-0.9-use-aspell-en-dictionary-by-default.patch
 
 Url:		http://www.gitorious.org/
 Group:		Development/Other
@@ -33,6 +31,7 @@ Requires:	git-core
 Requires:	ImageMagick
 Requires:	rubygem(BlueCloth)
 Requires:	rubygem(archive-tar-minitar)
+Requires:	rubygem(bundler)
 Requires:	rubygem(chronic)
 Requires:	rubygem(diff-lcs)
 Requires:	rubygem(echoe)
@@ -103,10 +102,8 @@ cp config/ultrasphinx/{default,production}.base
 %patch0 -p0 -b .ultrasphinx_production~
 %patch2 -p1 -b .url_root~
 %patch3 -p1 -b .pidpath~
-%patch4 -p1 -b .oauth_gem~
 %patch5 -p1 -b .shellbang~
-%patch6 -p1 -b .gemver~
-%patch7 -p1 -b .aspell_en~
+%patch6 -p1 -b .aspell_en~
 find -name .gitignore|xargs rm -f
 # FIXME: hardcoding version is lame
 sed -e "s#RAILS_GEM_VERSION = '.*'#RAILS_GEM_VERSION = '%{railsv}'#g" -i config/environment.rb
@@ -119,7 +116,7 @@ rm -rf %{buildroot}
 
 # more crap
 install -d %{buildroot}%{_var}/www/%{name}
-cp -R Rakefile app bin config data db doc lib log public script test tmp vendor %{buildroot}%{_var}/www/%{name}
+cp -R Rakefile Gemfile Gemfile.lock app bin config data db doc lib log public script test tmp vendor %{buildroot}%{_var}/www/%{name}
 find %{buildroot} -name \*~ -delete
 
 # add the init files
@@ -216,7 +213,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc README HACKING AUTHORS TODO.txt
+%doc README HACKING AUTHORS TODO.txt NEWS
 %{_bindir}/gitorious-setup-1st-time
 %{_bindir}/gitorious
 %{_initrddir}/gitorious-*
@@ -233,6 +230,8 @@ rm -rf %{buildroot}
 %dir %{_var}/run/%{name}
 %dir %{_var}/log/%{name}
 %dir %{_var}/www/%{name}
+%{_var}/www/%{name}/Gemfile
+%{_var}/www/%{name}/Gemfile.lock
 %{_var}/www/%{name}/Rakefile
 %{_var}/www/%{name}/app/
 %{_var}/www/%{name}/bin/
