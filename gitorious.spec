@@ -145,6 +145,7 @@ production:
   gitorious_client_port: 80
   gitorious_client_host: localhost.localdomain
   gitorious_host: localhost.localdomain
+  gitorious_url_root: /gitorious
   gitorious_user: git
   exception_notification_emails:
   mangle_email_addresses: false
