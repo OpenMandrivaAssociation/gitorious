@@ -69,6 +69,9 @@ Requires:	sphinx
 BuildRequires:	rubygem(ultrasphinx)
 BuildRequires:	sphinx
 
+# required by git
+Requires:	openssh-server
+
 Requires:	rubygem(rails) = %{railsv}
 BuildRequires:	rubygem(rails) = %{railsv}
 # we need hostname to configure, and dd for generating random string
