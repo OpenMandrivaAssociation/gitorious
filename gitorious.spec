@@ -19,6 +19,7 @@ Patch3:		gitorious-0.9-poller-pid-path.patch
 Patch5:		gitorious-0.9-ruby-shellbang-path-fix.patch
 Patch6:		gitorious-0.9-use-aspell-en-dictionary-by-default.patch
 Patch7:		gitorious-0.9-fix-relative-symlink.patch
+Patch8:		gitorious-0.9-work-with-newer-rubygems-versions.patch
 
 Url:		http://www.gitorious.org/
 Group:		Development/Other
@@ -107,6 +108,7 @@ cp config/ultrasphinx/{default,production}.base
 %patch5 -p1 -b .shellbang~
 %patch6 -p1 -b .aspell_en~
 %patch7 -p1 -b .rel_symlink~
+%patch8 -p1 -b .gemfix~
 find -name .gitignore|xargs rm -f
 # FIXME: hardcoding version is lame
 #sed -e "s#RAILS_GEM_VERSION = '.*'#RAILS_GEM_VERSION = '%{railsv}'#g" -i config/environment.rb
