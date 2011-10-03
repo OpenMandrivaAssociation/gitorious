@@ -117,8 +117,6 @@ ln -s %{ruby_gemdir}/gems/ultrasphinx-* vendor/plugins/ultrasphinx
 %build
 
 %install
-rm -rf %{buildroot}
-
 # more crap
 install -d %{buildroot}%{_var}/www/%{name}
 cp -R Rakefile Gemfile Gemfile.lock app bin config data db doc lib log public script test tmp vendor %{buildroot}%{_var}/www/%{name}
@@ -198,9 +196,6 @@ install -d %{buildroot}%{_var}/{cache,tmp}/%{name}/tarballs
 install -d %{buildroot}%{_localstatedir}/lib/git/.ssh
 touch %{buildroot}%{_localstatedir}/lib/git/.ssh/authorized_keys
 
-%clean
-rm -rf %{buildroot}
-
 %pre
 %_pre_useradd git %{_localstatedir}/lib/git /bin/true
 
@@ -218,7 +213,6 @@ rm -rf %{buildroot}
 %_postun_userdel git
 
 %files
-%defattr(-,root,root)
 %doc README HACKING AUTHORS TODO.txt NEWS
 %{_bindir}/gitorious-setup-1st-time
 %{_bindir}/gitorious
