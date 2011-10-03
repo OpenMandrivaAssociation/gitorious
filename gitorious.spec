@@ -76,8 +76,6 @@ BuildRequires:	net-tools coreutils gawk
 # required by rpm build to check symbols in JsTestDriver-1.0b.jar
 BuildRequires:	fastjar
 
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-
 %description
 Gitorious aims to provide a great way of doing distributed opensource code collaboration.
 
