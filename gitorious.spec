@@ -65,6 +65,7 @@ Requires:	%{name}-database
 
 Requires:	rubygem(ultrasphinx)
 Requires:	sphinx
+BuildRequires:	rubygem(ultrasphinx)
 BuildRequires:	sphinx
 
 Requires:	rubygem(rails) = %{railsv}
@@ -108,8 +109,10 @@ cp config/ultrasphinx/{default,production}.base
 %patch7 -p1 -b .rel_symlink~
 find -name .gitignore|xargs rm -f
 # FIXME: hardcoding version is lame
-sed -e "s#RAILS_GEM_VERSION = '.*'#RAILS_GEM_VERSION = '%{railsv}'#g" -i config/environment.rb
+#sed -e "s#RAILS_GEM_VERSION = '.*'#RAILS_GEM_VERSION = '%{railsv}'#g" -i config/environment.rb
 rm -rf vendor/oauth vendor/plugins/ultrasphinx
+# FIXME: load as gem in stead
+ln -s %{ruby_gemdir}/gems/ultrasphinx-* vendor/plugins/ultrasphinx
 
 %build
 
