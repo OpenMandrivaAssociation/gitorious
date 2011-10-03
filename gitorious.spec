@@ -1,10 +1,10 @@
 # package derived from:
 # http://download.opensuse.org/repositories/home://dmacvicar:/gitorious/openSUSE_Factory/src/
 
-%define	railsv	2.3.10
+%define	railsv	2.3.11
 Name:		gitorious
 Version:	0.9
-Release:	%mkrel 5
+Release:	5
 License:	AGPLv3
 # 4cfa565112293932ab7b3ed4cce5e11603d4e0bf
 Source0:	gitorious.tar.xz
@@ -243,6 +243,7 @@ rm -rf %{buildroot}
 %ghost %config(noreplace) %{_var}/www/%{name}/config/database.yml
 %config(noreplace) %{_var}/www/%{name}/config/gitorious.yml
 %config(noreplace) %{_var}/www/%{name}/config/jsTestDriver.conf
+%{_var}/www/%{name}/config/authentication.sample.yml
 %{_var}/www/%{name}/config/broker.yml.example
 %{_var}/www/%{name}/config/database.sample.yml
 %{_var}/www/%{name}/config/gitorious.sample.yml
