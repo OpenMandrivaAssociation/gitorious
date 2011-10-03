@@ -197,7 +197,7 @@ install -d %{buildroot}%{_localstatedir}/lib/git/.ssh
 touch %{buildroot}%{_localstatedir}/lib/git/.ssh/authorized_keys
 
 %pre
-%_pre_useradd git %{_localstatedir}/lib/git /bin/true
+%_pre_useradd git %{_localstatedir}/lib/git /sbin/nologin
 
 %post
 %{_post_service gitorious-git-daemon}
