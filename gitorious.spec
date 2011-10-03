@@ -109,7 +109,7 @@ cp config/ultrasphinx/{default,production}.base
 find -name .gitignore|xargs rm -f
 # FIXME: hardcoding version is lame
 sed -e "s#RAILS_GEM_VERSION = '.*'#RAILS_GEM_VERSION = '%{railsv}'#g" -i config/environment.rb
-rm -rf vendor/rails vendor/oauth vendor/plugins/ultrasphinx
+rm -rf vendor/oauth vendor/plugins/ultrasphinx
 
 %build
 
