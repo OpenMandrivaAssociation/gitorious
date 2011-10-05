@@ -20,6 +20,7 @@ Patch5:		gitorious-0.9-ruby-shellbang-path-fix.patch
 Patch6:		gitorious-0.9-use-aspell-en-dictionary-by-default.patch
 Patch7:		gitorious-0.9-fix-relative-symlink.patch
 Patch8:		gitorious-0.9-work-with-newer-rubygems-versions.patch
+Patch9:		gitorious-0.9-use-rots-gem.patch
 
 Url:		http://www.gitorious.org/
 Group:		Development/Other
@@ -110,6 +111,7 @@ cp config/ultrasphinx/{default,production}.base
 %patch6 -p1 -b .aspell_en~
 %patch7 -p1 -b .rel_symlink~
 %patch8 -p1 -b .gemfix~
+%patch9 -p1 -b .rots_gem~
 find -name .gitignore|xargs rm -f
 # FIXME: hardcoding version is lame
 #sed -e "s#RAILS_GEM_VERSION = '.*'#RAILS_GEM_VERSION = '%{railsv}'#g" -i config/environment.rb
