@@ -1,0 +1,136 @@
+--- gitorious/app/controllers/merge_requests_controller.rb.url_root~	2011-10-03 14:11:54.000000000 +0200
++++ gitorious/app/controllers/merge_requests_controller.rb	2011-10-03 14:27:18.779487376 +0200
+@@ -131,7 +131,7 @@ class MergeRequestsController < Applicat
+   # This is a static URL the user returns to after accepting the terms
+   # for a merge request
+   def oauth_return
+-    redirect_back_or_default '/'
++    redirect_back_or_default root_path
+   end
+ 
+   def terms_accepted
+--- gitorious/app/controllers/repositories_controller.rb.url_root~	2011-10-03 14:11:54.000000000 +0200
++++ gitorious/app/controllers/repositories_controller.rb	2011-10-03 14:26:42.050469068 +0200
+@@ -281,7 +281,7 @@ class RepositoriesController < Applicati
+           :uri => url_for(project_repository_path(@project, repo)),
+           :img => repo.owner.avatar? ?
+             repo.owner.avatar.url(:thumb) :
+-            "/images/default_face.gif",
++            root_path + "/images/default_face.gif",
+           :owner => repo.owner.title,
+           :owner_type => repo.owner_type.downcase,
+           :owner_uri => url_for(repo.owner)
+--- gitorious/app/controllers/sessions_controller.rb.url_root~	2011-10-03 14:11:54.000000000 +0200
++++ gitorious/app/controllers/sessions_controller.rb	2011-10-03 14:27:54.883505371 +0200
+@@ -49,7 +49,7 @@ class SessionsController < ApplicationCo
+     clear_varnish_auth_cookie
+     reset_session
+     flash[:notice] = "You have been logged out."
+-    redirect_back_or_default('/')
++    redirect_back_or_default(root_path)
+   end
+ 
+   protected
+@@ -121,7 +121,7 @@ class SessionsController < ApplicationCo
+         :secure => true
+       }
+     end
+-    check_state_and_redirect('/')
++    check_state_and_redirect(root_path)
+   end
+   
+   def check_state_and_redirect(redirection_url)
+--- gitorious/app/controllers/users_controller.rb.url_root~	2011-10-03 14:11:54.000000000 +0200
++++ gitorious/app/controllers/users_controller.rb	2011-10-03 14:28:32.732524236 +0200
+@@ -114,7 +114,7 @@ class UsersController < ApplicationContr
+     else
+       flash[:error] = I18n.t "users_controller.activate_error"
+     end
+-    redirect_back_or_default('/')
++    redirect_back_or_default(root_path)
+   end
+ 
+   def forgot_password
+--- gitorious/app/helpers/application_helper.rb.url_root~	2011-10-03 14:11:54.000000000 +0200
++++ gitorious/app/helpers/application_helper.rb	2011-10-03 14:30:33.128584246 +0200
+@@ -184,8 +184,8 @@ module ApplicationHelper
+     port_string = [443, 80].include?(request.port) ? "" : ":#{request.port}"
+     "#{prefix}.gravatar.com/avatar.php?gravatar_id=" +
+     (email.nil? ? "" : Digest::MD5.hexdigest(email.downcase)) + "&amp;default=" +
+-      u("#{scheme}://#{GitoriousConfig['gitorious_host']}#{port_string}" +
+-      "/#{options.delete(:default)}") +
++      u("#{scheme}://#{GitoriousConfig['gitorious_host']}#{port_string}" + root_path +
++      "#{options.delete(:default)}") +
+     options.map { |k,v| "&amp;#{k}=#{v}" }.join
+   end
+ 
+--- gitorious/app/models/repository.rb.url_root~	2011-10-03 14:11:54.000000000 +0200
++++ gitorious/app/models/repository.rb	2011-10-03 14:31:57.367626233 +0200
+@@ -225,7 +225,11 @@ class Repository < ActiveRecord::Base
+   end
+ 
+   def browse_url
+-    "#{GitoriousConfig['scheme']}://#{GitoriousConfig['gitorious_host']}/#{url_path}"
++    url = "#{GitoriousConfig['scheme']}://#{GitoriousConfig['gitorious_host']}"
++    if GitoriousConfig['gitorious_url_root']
++      url += GitoriousConfig['gitorious_url_root']
++    end
++    url += "/#{url_path}"
+   end
+ 
+   def clone_url
+@@ -233,7 +237,11 @@ class Repository < ActiveRecord::Base
+   end
+ 
+   def http_clone_url
+-    "#{GitoriousConfig['scheme']}://#{Site::HTTP_CLONING_SUBDOMAIN}.#{GitoriousConfig['gitorious_host']}/#{gitdir}"
++    url = "#{GitoriousConfig['scheme']}://#{Site::HTTP_CLONING_SUBDOMAIN}.#{GitoriousConfig['gitorious_host']}"
++    if GitoriousConfig['gitorious_url_root']
++      url += GitoriousConfig['gitorious_url_root']
++    end
++    url += "/#{gitdir}"
+   end
+ 
+   def http_cloning?
+--- gitorious/config/environments/production.rb.url_root~	2011-10-03 14:11:54.000000000 +0200
++++ gitorious/config/environments/production.rb	2011-10-03 14:26:42.052469070 +0200
+@@ -28,6 +28,9 @@ config.cache_store = :mem_cache_store, "
+ # Enable serving of images, stylesheets, and javascripts from an asset server
+ # config.action_controller.asset_host                  = "http://assets.example.com"
+ 
++# Set this to allow working from different location than /
++config.action_controller.relative_url_root = YAML.load_file(File.join(RAILS_ROOT, "config/gitorious.yml"))[RAILS_ENV]["gitorious_url_root"]
++
+ 
+ #
+ # If you don't have outgoing email set up, uncomment the following two lines:
+--- gitorious/lib/gitorious/ssh/client.rb.url_root~	2011-10-03 14:11:54.000000000 +0200
++++ gitorious/lib/gitorious/ssh/client.rb	2011-10-03 14:26:42.052469070 +0200
+@@ -79,7 +79,12 @@ module Gitorious
+       
+       def configuration
+         if @configuration.empty?
+-          query_url = "/#{@project_name}/#{@repository_name}/config"
++          query_url = ""
++          url_root = GitoriousConfig["gitorious_url_root"]
++          if url_root
++            query_url += url_root
++          end
++          query_url += "/#{@project_name}/#{@repository_name}/config"
+           # $stderr.puts "Querying #{query_url}" if $DEBUG
+           resp = connection.get(query_url)
+           # $stderr.puts resp
+@@ -106,7 +111,12 @@ module Gitorious
+         
+         # Returns an actual URI object
+         def writable_by_query_uri
+-          path = "/#{@project_name}/#{@repository_name}/writable_by"
++          path = ""
++          url_root = GitoriousConfig["gitorious_url_root"]
++          if url_root
++            path += url_root
++          end
++          path += "/#{@project_name}/#{@repository_name}/writable_by"
+           query = "username=#{@user_name}"
+           host = GitoriousConfig['gitorious_client_host']
+           _port = GitoriousConfig['gitorious_client_port']

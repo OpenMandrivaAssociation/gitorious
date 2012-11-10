@@ -1,0 +1,7 @@
+sources:
+  "gitorious-git-daemon.init:"	6d97c27aff3d107004ef21886187e786f2464825
+  "gitorious-poller.init:"	1442c144f6a747f63679386c199c89e06756fb84
+  "gitorious-setup-1st-time:"	a6d5d1c9fda2e15796b48499f355a513fbe96830
+  "gitorious.tar.xz:"	2fc0246f095fe9f72ac64268cc0e1e07c1fd70c2
+  "gitorious-ultrasphinx.init:"	1fba586d2eff08607a16706216bb7354cd114b8e
+  "sysconfig.gitorious:"	3e937d143616f6de69c2a3b35fba1a7c70790ebe

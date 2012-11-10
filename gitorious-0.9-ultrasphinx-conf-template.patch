@@ -1,0 +1,22 @@
+diff -p -up ./config/ultrasphinx/production.base.ultrasphinx_production~ ./config/ultrasphinx/production.base
+--- ./config/ultrasphinx/production.base.ultrasphinx_production~	2010-02-05 01:12:42.066497514 +0100
++++ ./config/ultrasphinx/production.base	2010-02-04 23:23:03.495498432 +0100
+@@ -33,14 +33,13 @@ indexer
+ searchd
+ {  
+   # What interface the search daemon should listen on and where to store its logs
+-  address = 0.0.0.0
+-  port = 3312
++  listen = 0.0.0.0:3312
+   seamless_rotate = 1
+-  log = <%= path %>log/searchd.log
+-  query_log = <%= path %>log/query.log
++  log = /var/log/gitorious/sphinx-searchd.log
++  query_log = /var/log/gitorious/sphinx-query.log
+   read_timeout = 5
+   max_children = 300
+-  pid_file = <%= path %>log/searchd.pid
++  pid_file = /var/run/gitorious/sphinx-searchd.pid
+   max_matches = 100000
+ }
+ 

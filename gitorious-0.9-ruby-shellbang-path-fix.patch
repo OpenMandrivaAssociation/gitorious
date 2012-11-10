@@ -1,0 +1,34 @@
+diff -p -up gitorious/public/dispatch.cgi.shellbang~ gitorious/public/dispatch.cgi
+--- gitorious/public/dispatch.cgi.shellbang~	2010-09-19 21:30:29.742548951 +0200
++++ gitorious/public/dispatch.cgi	2010-09-19 21:30:56.662037472 +0200
+@@ -1,4 +1,4 @@
+-#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby
++#!/usr/bin/env ruby
+ 
+ require File.dirname(__FILE__) + "/../config/environment" unless defined?(RAILS_ROOT)
+ 
+@@ -7,4 +7,4 @@ require File.dirname(__FILE__) + "/../co
+ require "dispatcher"
+ 
+ ADDITIONAL_LOAD_PATHS.reverse.each { |dir| $:.unshift(dir) if File.directory?(dir) } if defined?(Apache::RubyRun)
+-Dispatcher.dispatch
+\ No newline at end of file
++Dispatcher.dispatch
+diff -p -up gitorious/public/dispatch.fcgi.shellbang~ gitorious/public/dispatch.fcgi
+--- gitorious/public/dispatch.fcgi.shellbang~	2010-09-19 21:30:27.895584044 +0200
++++ gitorious/public/dispatch.fcgi	2010-09-19 21:30:47.243216432 +0200
+@@ -1,4 +1,4 @@
+-#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby
++#!/usr/bin/env ruby
+ #
+ # You may specify the path to the FastCGI crash log (a log of unhandled
+ # exceptions which forced the FastCGI instance to exit, great for debugging)
+diff -p -up gitorious/public/dispatch.rb.shellbang~ gitorious/public/dispatch.rb
+--- gitorious/public/dispatch.rb.shellbang~	2010-09-19 21:30:24.649645718 +0200
++++ gitorious/public/dispatch.rb	2010-09-19 21:30:38.530381979 +0200
+@@ -1,4 +1,4 @@
+-#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby
++#!/usr/bin/env ruby
+ 
+ require File.dirname(__FILE__) + "/../config/environment" unless defined?(RAILS_ROOT)
+ 

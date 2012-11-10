@@ -1,0 +1,11 @@
+--- gitorious/config/ultrasphinx/production.base.aspell_en~	2011-03-13 16:12:01.563161004 +0100
++++ gitorious/config/ultrasphinx/production.base	2011-03-13 16:12:04.515161004 +0100
+@@ -47,7 +47,7 @@ searchd
+ client
+ {
+   # Name of the Aspell dictionary (two letters max)
+-  dictionary_name = ap
++  dictionary_name = en
+   
+   # How your application connects to the search daemon (not necessarily the same as above)
+   server_host = localhost

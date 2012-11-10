@@ -1,0 +1,15 @@
+--- gitorious/script/poller.pidpath~	2011-10-03 14:11:54.000000000 +0200
++++ gitorious/script/poller	2011-10-03 14:23:43.447380046 +0200
+@@ -13,7 +13,11 @@ require 'daemons'
+ 
+ APP_ROOT = File.expand_path(File.dirname(__FILE__) + '/..')
+ script_file = File.join(File.expand_path(APP_ROOT), 'lib/gitorious/messaging/stomp_poller.rb')
+-tmp_dir = File.join(File.expand_path(APP_ROOT), 'tmp/pids')
++if ENV['PID_PATH']
++  tmp_dir = ENV['PID_PATH']
++else
++  tmp_dir = File.join(File.expand_path(APP_ROOT), 'tmp/pids')
++end
+ 
+ options = {
+   :app_name   => "poller",
