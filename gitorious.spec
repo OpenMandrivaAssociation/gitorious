@@ -22,7 +22,7 @@ Patch7:		gitorious-0.9-fix-relative-symlink.patch
 Patch8:		gitorious-0.9-work-with-newer-rubygems-versions.patch
 Patch9:		gitorious-0.9-use-rots-gem.patch
 
-Url:		http://www.gitorious.org/
+Url:		https://www.gitorious.org/
 Group:		Development/Other
 Summary:	Web based code collaboration
 BuildArch:	noarch
